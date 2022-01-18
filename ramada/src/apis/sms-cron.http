@@ -1,0 +1,17 @@
+
+# GET http://localhost.test/shahid/pillsgo/backend/web/index.php?r=sms/default/cron
+
+###
+
+# @server = http://pr.zarrtechnologies.com/rajvasant-backend/backend/web
+
+@server = http://localhost:8888/projects/zarrcom-backend/backend/web
+
+### Running sms cron
+GET {{server}}/index.php?r=sms/default/cron
+
+####
+
+
+GET http://localhost:8888/projects/zarrcom-backend/backend/web/index.php?r=sms/default/cron
+

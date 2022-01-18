@@ -1,0 +1,24 @@
+
+
+# @server = http://pr.zarrtechnologies.com/{{PPROJECT}}/api/web
+
+@server = http://localhost:8888/projects/zarrcom-backend/api/web
+
+### Getting records
+GET {{server}}/clienttestimonials?order=display_order
+
+
+### Getting records by category
+GET {{server}}/clienttestimonials?ClienttestimonialsSearch[category]=New Year 2021
+
+
+### Getting selected fields
+GET {{server}}/clienttestimonials?fields=key,value
+
+
+### Mixed Queries
+GET {{server}}/clienttestimonials?fields=key,value&ClienttestimonialsSearch[module_name]=frontend
+
+###
+
+GET {{server}}/clienttestimonials?ClienttestimonialsSearch[category]=Homepage%20Banners

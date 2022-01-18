@@ -1,0 +1,18 @@
+
+
+
+
+@server = http://localhost:8888/projects/{{PPROJECT}}/api/web
+
+### Getting setting by category
+GET {{server}}/faqs?FaqsSearch[category]=General
+
+
+### Getting selected fields
+GET {{server}}/faqs?fields=question,answer
+
+
+### Mixed Queries
+GET {{server}}/faqs?fields=question,answer&FaqsSearch[module_name]=frontend
+
+### FAQs api is not working.

@@ -1,0 +1,24 @@
+
+
+# @server = http://pr.zarrtechnologies.com/{{PPROJECT}}/api/web
+
+@server = http://localhost:8888/projects/zarrcom-backend/api/web
+
+### Getting records
+GET {{server}}/videogallery
+
+
+### Getting records by category
+GET {{server}}/videogallery?VideogallerySearch[category]=New Year Videos
+
+
+### Getting selected fields
+GET {{server}}/videogallery?fields=key,value
+
+
+### Mixed Queries
+GET {{server}}/videogallery?fields=key,value&VideogallerySearch[module_name]=frontend
+
+###
+
+GET {{server}}/videogallery?VideogallerySearch[category]=Homepage%20Banners

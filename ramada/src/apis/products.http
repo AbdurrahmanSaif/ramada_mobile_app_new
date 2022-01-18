@@ -1,0 +1,185 @@
+
+# @server = http://pr.zarrtechnologies.com/{{PPROJECT}}/api/web
+
+###
+# @server = http://pillsgo.com/backend/api/web
+# @server = http://lacreativity.in/backend/api/web
+# @server = http://faizark.com/backend/api/web
+
+# @server = http://localhost:8888/projects/zarrcom-backend/api/web
+
+@server = http://pr.zarrtechnologies.com/avon-backend/api/web
+
+###
+
+# @name login
+POST {{server}}/customers/login
+content-type: application/json
+
+{
+    "username": "7411343971",
+    "password": "12345678"
+}
+
+### Getting setting by category
+GET {{server}}/products?ProductsSearch[id]=109
+
+###
+
+GET {{server}}/products?per-page=22&page=1
+### Getting setting by search tags
+GET {{server}}/products?ProductsSearch[search_tags]=Note&ProductsSearch[pin_code]=9999
+
+###
+GET {{server}}/products?ProductsSearch[keyword]=Pro&ProductsSearch[pin_code]=9999
+
+### Getting hot products
+GET {{server}}/products?ProductsSearch[product_labels]=Featured
+
+###
+
+### Getting by group_id (This is used to get the similar products)
+GET {{server}}/products?ProductsSearch[group_id]=abc
+
+### Single Product
+GET {{server}}/products/169
+
+###
+
+### Use dot "." to get the pricing range
+### Getting records between price range for example where selling price is between 50 to 100.
+GET {{server}}/products?ProductsSearch[selling_price]=50.100
+
+
+### Getting selected fields
+GET {{server}}/products?fields=name,description
+
+###
+
+
+GET {{server}}/products?fields=id,name,image,selling_price
+
+
+### Mixed Queries
+GET {{server}}/products?fields=name,description&ProductsSearch[category]=10
+
+###
+
+GET {{server}}/products?ProductsSearch[similar_of]=2
+
+
+
+[
+  {
+    "id": 5,
+    "category_id": 1,
+    "name": "BournVita 500gm",
+    "main_image": "1610354841-cadbury-bournvita-health-drink-500g-jar-free-75g-bournvita-poucha.jpg",
+    "media": "1610354841-cadbury-bournvita-health-drink-500g-jar-free-75g-bournvita-poucha.jpg",
+    "is_active": "yes",
+    "available_stock": 0,
+    "sku": "PG0001",
+    "brand": "10",
+    "brand_name": "Cadbury",
+    "mrp": 250,
+    "selling_price": 220,
+    "delivery_charges": 0,
+    "allowed_pin_codes": "313001",
+    "highlights": "",
+    "attributes": "",
+    "search_tags": "",
+    "description": "",
+    "is_hot": 0,
+    "is_featured": 0,
+    "is_offer": 0,
+    "created_at": "2021-01-11 08:47:27",
+    "updated_at": null,
+    "created_by": 0,
+    "updated_by": 0,
+    "deleted_by": null,
+    "is_deleted": 0
+  },
+  {
+    "id": 7,
+    "category_id": 1,
+    "name": "pan",
+    "main_image": "1610428751-7tq-nk5c.jpg",
+    "media": "1610428751-7tq-nk5c.jpg",
+    "is_active": "yes",
+    "available_stock": 50,
+    "sku": "004",
+    "brand": "14",
+    "brand_name": "Alprax",
+    "mrp": 90,
+    "selling_price": 80,
+    "delivery_charges": 0,
+    "allowed_pin_codes": "560066",
+    "highlights": "good",
+    "attributes": "good",
+    "search_tags": "abc",
+    "description": "abc",
+    "is_hot": 0,
+    "is_featured": 0,
+    "is_offer": 0,
+    "created_at": "2021-01-12 05:19:46",
+    "updated_at": null,
+    "created_by": 0,
+    "updated_by": 0,
+    "deleted_by": null,
+    "is_deleted": 0
+  }
+]
+
+####
+
+POST {{server}}/products/add
+content-type: application/json
+Authorization: Bearer {{login.response.body.token}}
+
+{
+    "purchase_date": "2020-01-22",
+    "category_id": 10,
+    "name": "Mi Note 5 Pro8",
+    "images": "abc.jpg,xyz.png,hello.jpg",
+    "brand_id": 40,
+    "mrp": 16000,
+    "selling_price": 10000,
+    "description": "product description here",
+    "remarks": "any additional note"
+}
+
+####
+
+POST {{server}}/products/attachment
+Authorization: Bearer {{login.response.body.token}}
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+
+fieldname: attachment
+
+####
+
+
+POST {{server}}/products/add
+Authorization: Bearer {{login.response.body.token}}
+Content-Type: application/json
+
+{
+    "purchase_date": "2021-06-03",
+    "category_id": 8,
+    "name": "sdfsd",
+    "brand_id": 1,
+    "mrp": "22",
+    "selling_price": "22",
+    "description": "sdfbs",
+    "remarks": "sdf33",
+    "images": "1622708824-beautiful-natural-scenery-04-hd-pictures-166229.jpg,1622708828-bb.jpg,1622708833-heart-1192662-340.jpg"
+}
+
+####
+
+GET {{server}}/product_reviews?product_id=140
+
+###
+
+POST {{server}}/product_reviews

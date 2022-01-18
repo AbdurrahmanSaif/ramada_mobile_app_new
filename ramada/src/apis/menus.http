@@ -1,0 +1,44 @@
+
+# @server = http://pr.zarrtechnologies.com/{{PPROJECT}}/api/web
+# @server = http://pr.zarrtechnologies.com/chitra-backend/api/web
+
+# @server = http://localhost:8888/projects/zarrcom-backend/api/web
+
+##
+# @server = http://pillsgo.com/backend/api/web
+# @server = http://faizark.com/backend/api/web
+# @server = https://lacreativity.in/backend/api/web
+
+### Getting setting by category
+
+# @server = https://metcraftchitra.com/backend/api/web
+@server = https://rajvasantexport.com/backend/api/web
+
+###
+
+GET {{server}}/menus?per-page=1000&page=1&fields=id,name
+
+###
+
+GET {{server}}/menus
+###
+GET {{server}}/menus?MenusSearch[category]=top-menu&sort=display_order
+
+###
+
+GET {{server}}/menus?MenusSearch[category]=footer-company-menu
+
+###
+
+GET {{server}}/menus?MenusSearch[category]=footer-shopping-menu
+
+
+### Getting selected fields
+GET {{server}}/menus?fields=category,name,url
+
+
+### Mixed Queries
+GET {{server}}/menus?fields=category,name,url&MenusSearch[module_name]=top-menu
+
+
+###123##

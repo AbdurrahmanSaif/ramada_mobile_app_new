@@ -1,0 +1,21 @@
+
+
+@server = http://pr.zarrtechnologies.com/{{PPROJECT}}/api/web
+
+# @server = http://localhost:8888/projects/zarrcom-backend/api/web
+
+### Getting setting by category
+GET {{server}}/assets?AssetsSearch[category]=Default
+
+
+### Getting selected fields
+GET {{server}}/assets?fields=name,file_name
+
+
+### Mixed Queries
+GET {{server}}/assets?fields=name,file_name&AssetsSearch[category]=frontend
+
+
+###
+
+GET {{server}}/assets?AssetsSearch[category]=Homepage%20assets

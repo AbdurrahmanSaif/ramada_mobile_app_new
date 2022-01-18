@@ -1,0 +1,29 @@
+
+# @server = http://pr.zarrtechnologies.com/{{PPROJECT}}/api/web
+
+@server = http://localhost:8888/projects/zarrcom-backend/api/web
+
+### Getting setting by category
+
+###
+
+GET {{server}}/contents
+
+###
+GET {{server}}/contents?ContentsSearch[category]=top-menu
+
+###
+
+GET {{server}}/contents?ContentsSearch[category]=footer-company-menu
+
+###
+
+GET {{server}}/contents?ContentsSearch[category]=footer-shopping-menu
+
+
+### Getting selected fields
+GET {{server}}/contents?fields=category,name,url
+
+
+### Mixed Queries
+GET {{server}}/contents?fields=category,name,url&ContentsSearch[module_name]=top-menu

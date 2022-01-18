@@ -1,0 +1,33 @@
+
+
+# @server = http://pr.zarrtechnologies.com/{{PPROJECT}}/api/web
+# @server = http://pillsgo.com/backend/api/web
+
+@server = http://localhost:8888/projects/zarrcom-backend/api/web
+
+# @name login
+POST {{server}}/customers/login
+content-type: application/json
+
+{
+    "username": "7411343971",
+    "password": "12345678"
+}
+
+###
+
+### Creating new record
+POST {{server}}/banquetbookings
+Content-Type: application/json
+Authorization: Bearer {{login.response.body.token}}
+
+{
+    "name": "Shahid",
+    "address": "sadar bazar, delhi - 110006",
+    "mobile_number": "9999999999",
+    "email_address": "shahid@yahoo.com",
+    "function_date": "2020-10-18",
+    "function_type": "9999999999",
+    "number_of_pax": 4,
+    "remarks": "I need it in morning"
+}

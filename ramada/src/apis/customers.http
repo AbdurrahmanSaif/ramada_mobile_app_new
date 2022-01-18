@@ -1,0 +1,350 @@
+
+
+# @server = http://pr.zarrtechnologies.com/{{PPROJECT}}/api/web
+@server = http://pr.zarrtechnologies.com/avon-backend/api/web
+
+# @server = http://localhost:8888/projects/zarrcom-backend/api/web
+
+# @server = http://pillsgo.com/backend/api/web
+
+# @server = http://rajvasantexport.com/backend/api/web
+
+
+###
+
+### Login
+# @name login
+
+POST {{server}}/customers/login
+content-type: application/json
+
+{
+    "username": "7411343971",
+    "password": "12345678"
+}
+
+###
+# @name login
+POST {{server}}/customers/login
+content-type: application/json
+
+{
+    "username": "8123611474",
+    "password": "tk123"
+}
+
+###
+# @name login
+POST {{server}}/customers/login
+content-type: application/json
+
+{
+    "username": "7411343973",
+    "password": "xyz123"
+}
+
+### xyz123 => $2y$13$DuQmGFRatIWHiyx2Or5RiOW0ln6noa366BoU/XITnhVMageVaPFBS
+
+
+### Creating a new customer
+POST {{server}}/customers
+content-type: application/json
+
+{
+    "mobile_number": "9682264963",
+    "password": "xyz123",
+    "fcm_token": "tk123"
+}
+
+### Verify OTP
+POST {{server}}/customers/verify_mobile_otp
+content-type: application/json
+
+{
+    "mobile_number": "9991712-",
+    "mobile_verification_otp": "109318"
+}
+
+
+### Resending OTP
+POST {{server}}/customers/resend_mobile_otp
+content-type: application/json
+
+{
+    "mobile_number": "7411343971"
+}
+
+
+### Getting current customer details
+GET {{server}}/customers/details
+Authorization: Bearer {{login.response.body.token}}
+
+##
+
+GET http://localhost:3080/customers/details
+Authorization: Bearer {{login.response.body.token}}
+
+###
+
+GET {{server}}/menus
+
+
+### Updating user
+POST {{server}}/customers/update_customer
+content-type: application/json
+Authorization: Bearer {{login.response.body.token}}
+
+{
+    "name": "Shahid2",
+    "fcm_token": "8899",
+    "cart_data": "json string here"
+}
+
+### Updating the current customer (more fields)
+POST {{server}}/customers/update_customer
+content-type: application/json
+Authorization: Bearer {{login.response.body.token}}
+
+{
+    "name": "Shahid",
+    "fcm_token": "88",
+    "email": "shahid@yahoo.com",
+    "gender": "male",
+    "dob": "1985-01-20",
+    "city": "Delhi",
+    "pin_code": "110006",
+    "address": "sadar bazar, delhi - 6"
+}
+
+################################################################################################
+################################################################################################
+
+GET {{server}}/customers/30
+Authorization: Bearer {{login.response.body.token}}
+
+
+###
+
+POST {{server}}/customers/forgot_password
+content-type: application/json
+
+{
+    "mobile_number": "7411343971"
+}
+
+###
+
+POST {{server}}/customers/verify_forgot_password_otp
+content-type: application/json
+
+{
+    "mobile_number": "7411343971",
+    "mobile_verification_otp": "583709"
+}
+
+###
+
+
+
+###
+
+POST {{server}}/customers/change_password
+content-type: application/json
+Authorization: Bearer {{login.response.body.token}}
+
+{
+    "old_password": "123",
+    "new_password": "1233"
+}
+
+# pJKHDszP
+
+#### This is used to extend the access token value
+GET {{server}}/customers/extend_access_token
+content-type: application/json
+Authorization: Bearer {{login.response.body.token}}
+####
+
+
+POST {{server}}/customers/get_login_otp
+content-type: application/json
+
+{
+    "mobile_number": "7411343971"
+}
+
+######
+
+POST {{server}}/customers/login_using_otp
+content-type: application/json
+
+{
+    "mobile_number": "7411343971",
+    "otp": "387310"
+}
+
+##################################################
+##################################################
+##### User login/signup etc using email address
+#####
+
+### Signup using email address
+POST {{server}}/customers
+content-type: application/json
+
+{
+    "email": "mshahid85+16@gmail.com",
+    "password": "12345678"
+}
+
+### Verify otp using email address
+POST {{server}}/customers/verify_email_otp
+content-type: application/json
+
+{
+    "email": "mshahid85+1@gmail.com",
+    "email_verification_otp": "788827"
+}
+
+### Login using email address
+
+# @name login
+POST {{server}}/customers/login_using_email
+content-type: application/json
+
+{
+    "email": "mshahid85+9@gmail.com",
+    "password": "pJKHDszP"
+}
+
+### Using can reset your password using email address with the given api
+POST {{server}}/customers/forgot_email_password
+content-type: application/json
+
+{
+    "email": "mshahid85+9@gmail.com"
+}
+
+### To get a new password on your email address, use the given API.
+POST {{server}}/customers/verify_email_forgot_password_otp
+content-type: application/json
+
+{
+    "email": "mshahid85+9@gmail.com",
+    "email_verification_otp": "845869"
+}
+
+### Resending OTP
+POST {{server}}/customers/resend_email_otp
+content-type: application/json
+
+{
+    "email": "mshahid85+2@gmail.com"
+}
+
+
+####
+
+
+#### Getting address
+GET {{server}}/customers/address
+content-type: application/json
+Authorization: Bearer {{login.response.body.token}}
+
+#### Inserting new address
+POST {{server}}/customers/address
+content-type: application/json
+Authorization: Bearer {{login.response.body.token}}
+
+{
+    "address_type": "work",
+    "address_name": "Home Address",
+    "contact_person": "Mohd Shahid",
+    "mobile_number": "7411343971",
+    "pin_code": "110006",
+    "full_address": "Sadar bazar delhi - 110006"
+}
+
+### Deleting address
+DELETE {{server}}/customers/address/9
+content-type: application/json
+Authorization: Bearer {{login.response.body.token}}
+
+### Updating address
+
+PUT {{server}}/customers/address/1
+content-type: application/json
+Authorization: Bearer {{login.response.body.token}}
+
+{
+    "address_type": "work",
+    "address_name": "My Home",
+    "contact_person": "Mohd Shahid",
+    "mobile_number": "7411343971",
+    "pin_code": "110006",
+    "full_address": "Sadar bazar delhi - 110006"
+}
+
+###
+
+
+GET {{server}}/customers/address
+content-type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mjk3MzQzNDcsImV4cCI6MTY0NTUxMjgxMCwidWlkIjoiNDIifQ.ahghXKpJuGP1Q4eAMnG8-_kvafi4wNlcJZCal-fSURI
+
+
+###
+
+
+curl 'https://rajvasantexport.com/backend/api/web/orders/checkout' \
+  -H 'authority: rajvasantexport.com' \
+  -H 'pragma: no-cache' \
+  -H 'cache-control: no-cache' \
+  -H 'sec-ch-ua: "Google Chrome";v="93", " Not;A Brand";v="99", "Chromium";v="93"' \
+  -H 'accept: application/json, text/plain, */*' \
+  -H 'content-type: application/json;charset=UTF-8' \
+  -H 'authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzA3NDA5OTgsImV4cCI6MTYzMDc0NDU5OCwidWlkIjoiOTEifQ.5SFOK-ETYBKmybz16Fbx7YDUdP4vOnchD5srMaSOj7k' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36' \
+  -H 'sec-ch-ua-platform: "macOS"' \
+  -H 'origin: http://localhost:3000' \
+  -H 'sec-fetch-site: cross-site' \
+  -H 'sec-fetch-mode: cors' \
+  -H 'sec-fetch-dest: empty' \
+  -H 'referer: http://localhost:3000/' \
+  -H 'accept-language: en-US,en;q=0.9' \
+  --data-raw '{"customer":{"name":"Mohd Shahid","address":"#99, Flat No. 301, 3rd Floor, 8th main, Madeena Nagar, Mangampalya Main Road.","mobile_number":"+917411343971","city":"","district":"","state":"","country":"","additional_mobile_number":"+917411343971","pin_code":"560068"},"items":[{"item_id":231,"quantity":1}],"customer_remarks":"","coupon_code":"","currency_code":"USD"}' \
+  --compressed
+
+
+###
+
+
+curl 'https://rajvasantexport.com/backend/api/web/customers/verify_email_forgot_password_otp' \
+  -H 'authority: rajvasantexport.com' \
+  -H 'pragma: no-cache' \
+  -H 'cache-control: no-cache' \
+  -H 'sec-ch-ua: "Google Chrome";v="93", " Not;A Brand";v="99", "Chromium";v="93"' \
+  -H 'accept: application/json, text/plain, */*' \
+  -H 'content-type: application/json' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36' \
+  -H 'sec-ch-ua-platform: "macOS"' \
+  -H 'origin: http://localhost:3000' \
+  -H 'sec-fetch-site: cross-site' \
+  -H 'sec-fetch-mode: cors' \
+  -H 'sec-fetch-dest: empty' \
+  -H 'referer: http://localhost:3000/' \
+  -H 'accept-language: en-US,en;q=0.9' \
+  --data-raw '{"email":{"email":"mshahid85+9@gmail.com","email_verification_otp":"572313"}}' \
+  --compressed
+
+###
+
+POST {{server}}/customers/verify_email_forgot_password_otp
+content-type: application/json
+
+{
+    "email": "mshahid85+9@gmail.com",
+    "email_verification_otp": "971673"
+}

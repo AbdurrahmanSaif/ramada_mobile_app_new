@@ -1,0 +1,32 @@
+
+
+@server = http://pr.zarrtechnologies.com/{{PPROJECT}}/api/web
+# @server = http://pillsgo.com/backend/api/web
+
+# @server = http://localhost:8888/projects/zarrcom-backend/api/web
+
+# @name login
+POST {{server}}/customers/login
+content-type: application/json
+
+{
+    "username": "7411343971",
+    "password": "12345678"
+}
+
+###
+
+### Creating new record
+POST {{server}}/roombookings
+Content-Type: application/json
+Authorization: Bearer {{login.response.body.token}}
+
+{
+    "name": "Shahid",
+    "address": "sadar bazar, delhi - 110006",
+    "mobile_number": "9999999999",
+    "email_address": "shahid@yahoo.com",
+    "checkin_date": "2020-10-22",
+    "checkout_date": "2020-10-25",
+    "remarks": "I need room with double bed"
+}

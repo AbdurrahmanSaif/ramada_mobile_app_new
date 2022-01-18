@@ -1,0 +1,21 @@
+
+
+# @server = http://pr.zarrtechnologies.com/{{PPROJECT}}/api/web
+
+@server = http://localhost:8888/projects/zarrcom-backend/api/web
+
+### Getting setting by category
+GET {{server}}/banners?BannersSearch[category]=Homepage Banners&sort=display_order
+
+
+### Getting selected fields
+GET {{server}}/banners?fields=key,value
+
+
+### Mixed Queries
+GET {{server}}/banners?fields=key,value&BannersSearch[module_name]=frontend
+
+
+###
+
+GET {{server}}/banners?BannersSearch[category]=Homepage%20Banners

@@ -1,0 +1,141 @@
+
+# @server = http://pr.zarrtechnologies.com/{{PPROJECT}}/api/web
+
+@server = http://localhost:8888/projects/zarrcom-backend/api/web
+
+
+###
+
+# @name login
+POST {{server}}/customers/login
+content-type: application/json
+
+{
+    "username": "7411343971",
+    "password": "12345678"
+}
+
+### Creating a new Order
+
+# @name order
+POST {{server}}/orders
+content-type: application/json
+Authorization: Bearer {{login.response.body.token}}
+
+{
+    "customer_remarks": "I need in big box",
+    "items": [
+        {
+            "item_id": 1,
+            "quantity": 1
+        },
+        {
+            "item_id": 2,
+            "quantity": 3
+        }
+    ]
+}
+
+### Response
+
+{
+    "order_id": "order_FruaJXyh4zvPWT",
+    "total_amount": 260,
+    "customer": {
+
+    },
+    "items": [
+        {
+            "item_id": 123,
+            "quantity": 1
+        },
+        {
+            "item_id": 345,
+            "quantity": 3
+        },
+    ],
+}
+
+
+### Checkout API
+
+POST {{server}}/orders/checkout
+content-type: application/json
+Authorization: Bearer {{login.response.body.token}}
+
+{
+    "order_id": "{{order.response.body.order_id}}",
+    "customer": {
+        "name": "Mohd Shahid",
+        "email": "mshahid85@gmail.com",
+        "address": "3rd floor, ahata kidara, sadar bazar, Delhi - 11006",
+        "city": "3rd floor, ahata kidara, sadar bazar, Delhi - 11006",
+        "country": "India",
+        "state": "India",
+        "pin_code": "110006",
+        "additional_mobile_number": "99999999"
+    }
+}
+
+### Response
+
+{
+  "customer": {
+    "id": 28,
+    "name": "Mohd Shahid",
+    "email": "mshahid85@gmail.com",
+    "gender": "",
+    "mobile_number": "9991712",
+    "dob": "0000-00-00",
+    "city": "3rd floor, ahata kidara, sadar bazar, Delhi - 11006",
+    "pin_code": "110006",
+    "address": "3rd floor, ahata kidara, sadar bazar, Delhi - 11006",
+    "remark": "",
+    "active": "yes",
+    "fcm_token": "tk123"
+  },
+  "order": {
+    "order_id": "order_FndDIytfnaRSBJ",
+    "delivery_charges": 60,
+    "total_amount": 560,
+    "coupon_code": "",
+    "customer_remarks": "I need in big box"
+  }
+}
+
+###
+
+
+POST {{server}}/orders/verify_payment
+content-type: application/json
+Authorization: Bearer {{login.response.body.token}}
+
+{
+    "order_id": "order_GaAzlZMMkaXfD1",
+    "payload": {
+        "razorpay_payment_id": "pay_29QQoUBi66xm2f",
+        "razorpay_order_id": "order_9A33XWu170gUtm",
+        "razorpay_signature": "9ef4dffbfd84f1318f6739a3ce19f9d85851857ae648f114332d8401e0949a3d"
+    }
+}
+
+### response
+{
+  "payment_status": "Failed",
+  "payment_verification_error_message": "Invalid signature passed"
+}
+
+###
+
+GET {{server}}/orders
+Authorization: Bearer {{login.response.body.token}}
+
+###
+
+GET {{server}}/orders/items?orderId=order_FomQ5hEZTqcNG7
+Authorization: Bearer {{login.response.body.token}}
+
+
+####
+
+####

@@ -1,0 +1,23 @@
+
+
+@server = http://pr.zarrtechnologies.com/{{PPROJECT}}/api/web
+
+# @server = http://localhost:8888/projects/{{PPROJECT}}/api/web
+
+### Adding a New Newsletter Subscriber
+POST {{server}}/newsletters
+content-type: application/json
+
+{
+    "email": "mshahid85112@gmail.com"
+}
+
+###
+
+GET {{server}}/newsletters/subscribers
+
+
+###
+GET {{server}}/newsletters
+
+////

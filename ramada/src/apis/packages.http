@@ -1,0 +1,13 @@
+
+@server = http://pr.zarrtechnologies.com/{{PPROJECT}}/api/web
+
+
+# @server = http://localhost:8888/projects/zarrcom-backend/api/web
+
+### Getting setting by category
+GET {{server}}/packages?PackagesSearch[category]=Wellness
+
+
+### Getting selected fields and sorted
+GET {{server}}/packages?fields=display_order,name,image,url,description&sort=display_order
+

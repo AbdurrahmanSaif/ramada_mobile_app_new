@@ -1,0 +1,32 @@
+
+
+# @server = http://pr.zarrtechnologies.com/rajvasant-backend/api/web
+
+# @server = http://localhost:8888/projects/zarrcom-backend/api/web
+
+@server = https://metcraftchitra.com/backend/api/web
+
+### Getting All the pages
+GET {{server}}/pages
+
+
+### Getting record by internal name
+GET {{server}}/pages?PageSearch[internal_name]=about-us
+
+
+### Getting selected fields
+GET {{server}}/pages?fields=id,title
+
+### Sorting (id desc)
+GET {{server}}/pages?sort=-id
+
+
+### Searching by keyword in content
+GET {{server}}/pages?PageSearch[content]=soon
+
+
+### Mixed Queries
+GET {{server}}/pages?sort=-id&fields=id,title&PageSearch[id]=1
+
+### Searchable Fields (using like condition)
+url, meta_keyword, meta_description, content, title

@@ -1,0 +1,363 @@
+
+# @server = http://pr.zarrtechnologies.com/{{PPROJECT}}/api/web
+# @server = http://pillsgo.com/backend/api/web
+# @server = http://thesecondhandoutlet.com/backend/api/web
+
+# @server = http://pr.zarrtechnologies.com/avon-backend/api/web
+
+#@server = http://localhost:8888/projects/zarrcom-backend/api/web
+
+@server = https://lacreativity.in/backend/api/web
+
+
+###
+
+# @name login
+POST {{server}}/customers/login
+content-type: application/json
+
+{
+  "username": "7411343971",
+  "password": "12345678"
+}
+
+### Checkout API
+
+POST {{server}}/orders/checkout
+content-type: application/json
+Authorization: Bearer {{login.response.body.token}}
+
+{
+    "items": [
+      {
+          "item_id": 155,
+          "quantity": 20
+      }
+  ],
+  "currency_code": "INR",
+  "customer_remarks": "I need in big box",
+  "coupon_code": "",
+  "customer": {
+      "address_id": 7,
+      "name": "Mohd Shahid"
+  }
+}
+
+### Response
+
+{
+"customer": {
+  "id": 28,
+  "name": "Mohd Shahid",
+  "email": "mshahid85@gmail.com",
+  "gender": "",
+  "mobile_number": "9991712",
+  "dob": "0000-00-00",
+  "city": "3rd floor, ahata kidara, sadar bazar, Delhi - 11006",
+  "pin_code": "110006",
+  "address": "3rd floor, ahata kidara, sadar bazar, Delhi - 11006",
+  "remark": "",
+  "active": "yes",
+  "fcm_token": "tk123"
+},
+"settings": {
+  "payment_gateway": "razorpay",
+  "api_key": "1234567"
+},
+"order": {
+  "order_id": "order_FndDIytfnaRSBJ",
+  "delivery_charges": 60,
+  "total_amount": 560,
+  "coupon_code": "",
+  "customer_remarks": "I need in big box"
+}
+}
+
+###
+
+
+### After finishing the payment using javascript popup, it gives the response and we are validating that response to confirm the order.
+POST {{server}}/orders/verify_payment
+content-type: application/json
+Authorization: Bearer {{login.response.body.token}}
+
+{
+  "order_id": "order_GaAzlZMMkaXfD1",
+  "payment_option": "razorpay",
+  "payload": {
+      "razorpay_payment_id": "pay_29QQoUBi66xm2f",
+      "razorpay_order_id": "order_9A33XWu170gUtm",
+      "razorpay_signature": "9ef4dffbfd84f1318f6739a3ce19f9d85851857ae648f114332d8401e0949a3d"
+  }
+}
+
+###
+
+POST {{server}}/orders/verify_payment
+content-type: application/json
+Authorization: Bearer {{login.response.body.token}}
+
+{
+  "order_id": "order_GaAzlZMMkaXfD1",
+  "payment_option": "COD",
+  "payload": {}
+}
+
+### response
+{
+    "payment_status": "Failed",
+    "payment_verification_error_message": "Invalid signature passed"
+}
+
+###
+
+GET {{server}}/orders?sort=-id&&per-page=15&page=1
+Authorization: Bearer {{login.response.body.token}}
+
+###
+
+GET {{server}}/orders/items?orderId=P-1631456490
+Authorization: Bearer {{login.response.body.token}}
+
+###
+
+GET {{server}}/orders/order_details?orderId=P-1631514364
+Authorization: Bearer {{login.response.body.token}}
+
+###
+
+GET {{server}}/orders/order_details?orderId=order_FnTOhKoSVLdwSO
+Authorization: Bearer {{login.response.body.token}}
+
+####
+
+POST {{server}}/orders/attachment
+Authorization: Bearer {{login.response.body.token}}
+Content-Type: application/json
+
+{
+"aa": "bb"
+}
+
+####
+
+POST {{server}}/orders/attachment
+Authorization: Bearer {{login.response.body.token}}
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="text"
+
+title
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="image"; filename="1.png"
+Content-Type: image/png
+
+< ./bb.jpg
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+###
+
+
+curl 'http://pillsgo.com/backend/api/web/orders?sort=-id&per-page=1000' \
+-H 'Connection: keep-alive' \
+-H 'Accept: application/json, text/plain, */*' \
+-H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MTY4Mzg5MzYsImV4cCI6MTYxNjg0MjUzNiwidWlkIjoiMjIifQ.9i3c6onvyRUZCRBfpg5M2npvMCrTmqnwdix0yc5y1v4' \
+-H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36' \
+-H 'Origin: http://localhost:3000' \
+-H 'Referer: http://localhost:3000/' \
+-H 'Accept-Language: en-US,en;q=0.9' \
+--compressed \
+--insecure
+
+####
+
+curl 'https://metcraftchitra.com/backend/api/web/customers/login' \
+-H 'authority: metcraftchitra.com' \
+-H 'sec-ch-ua: " Not;A Brand";v="99", "Google Chrome";v="91", "Chromium";v="91"' \
+-H 'accept: application/json, text/plain, */*' \
+-H 'authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MjQ5ODk0MjUsImV4cCI6MTYyNDk5MzAyNSwidWlkIjoiNjUifQ.oAhvB0HYa59bAyFUsv87qjZTxLxDKwGXBQPthZf-6VY' \
+-H 'sec-ch-ua-mobile: ?0' \
+-H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36' \
+-H 'content-type: application/json; charset=UTF-8' \
+-H 'origin: http://localhost:3000' \
+-H 'sec-fetch-site: cross-site' \
+-H 'sec-fetch-mode: cors' \
+-H 'sec-fetch-dest: empty' \
+-H 'referer: http://localhost:3000/' \
+-H 'accept-language: en-US,en;q=0.9' \
+--data-raw '{"username":"7411343971","password":"12345678"}' \
+--compressed
+
+
+#####
+
+
+curl 'https://rajvasantexport.com/backend/api/web/orders/verify_payment' \
+  -H 'authority: rajvasantexport.com' \
+  -H 'sec-ch-ua: " Not;A Brand";v="99", "Google Chrome";v="91", "Chromium";v="91"' \
+  -H 'accept: application/json, text/plain, */*' \
+  -H 'authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MjcyODU1ODIsImV4cCI6MTYyNzI4OTE4MiwidWlkIjoiOTEifQ.nI-uJ9boO8fvD2E_r680KIa3AjsYlFvs7OaJDefDQK0' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36' \
+  -H 'content-type: application/json;charset=UTF-8' \
+  -H 'origin: http://localhost:3000' \
+  -H 'sec-fetch-site: cross-site' \
+  -H 'sec-fetch-mode: cors' \
+  -H 'sec-fetch-dest: empty' \
+  -H 'referer: http://localhost:3000/' \
+  -H 'accept-language: en-US,en;q=0.9' \
+  --data-raw '{"order_id":"pp-1627285594","payment_option":"onlinePayment","payload":{"details":{"id":"14H16959XF0889058","intent":"CAPTURE","status":"COMPLETED","purchase_units":[{"reference_id":"default","amount":{"currency_code":"USD","value":"90.00"},"payee":{"email_address":"sb-1ovaa5286379@business.example.com","merchant_id":"54GHBCNUMRU7W"},"soft_descriptor":"PAYPAL *JOHNDOESTES","shipping":{"name":{"full_name":"John Doe"},"address":{"address_line_1":"Flat no. 507 Wing A Raheja Residency","address_line_2":"Film City Road","admin_area_2":"Mumbai","admin_area_1":"Maharashtra","postal_code":"400097","country_code":"IN"}},"payments":{"captures":[{"id":"80D10529BM613830E","status":"COMPLETED","amount":{"currency_code":"USD","value":"90.00"},"final_capture":true,"seller_protection":{"status":"ELIGIBLE","dispute_categories":["ITEM_NOT_RECEIVED","UNAUTHORIZED_TRANSACTION"]},"create_time":"2021-07-26T07:47:20Z","update_time":"2021-07-26T07:47:20Z"}]}}],"payer":{"name":{"given_name":"John","surname":"Doe"},"email_address":"sb-47hsml5238556@personal.example.com","payer_id":"RANA3V4HD9KHQ","address":{"country_code":"IN"}},"create_time":"2021-07-26T07:46:56Z","update_time":"2021-07-26T07:47:20Z","links":[{"href":"https://api.sandbox.paypal.com/v2/checkout/orders/14H16959XF0889058","rel":"self","method":"GET"}]},"data":{"orderID":"14H16959XF0889058","payerID":"RANA3V4HD9KHQ","paymentID":null,"billingToken":null,"facilitatorAccessToken":"A21AAIZXi2or1KPJ02smxoIBZgnm2_6LvfqrXQEfy7_kJpH2gBFkNo-x6zwYCN8TALO74BLiEF4c7yz8C46y1zn7ORYOWxntg"}}}' \
+  --compressed
+
+####
+
+POST {{server}}/orders/verify_payment
+content-type: application/json
+Authorization: Bearer {{login.response.body.token}}
+
+{
+    "order_id": "pp-1627284655",
+    "payment_option": "onlinePayment",
+    "payload": {
+        "details": {
+            "id": "14H16959XF0889058",
+            "intent": "CAPTURE",
+            "status": "COMPLETED",
+            "purchase_units": [
+                {
+                    "reference_id": "default",
+                    "amount": {
+                        "currency_code": "USD",
+                        "value": "90.00"
+                    },
+                    "payee": {
+                        "email_address": "sb-1ovaa5286379@business.example.com",
+                        "merchant_id": "54GHBCNUMRU7W"
+                    },
+                    "soft_descriptor": "PAYPAL *JOHNDOESTES",
+                    "shipping": {
+                        "name": {
+                            "full_name": "John Doe"
+                        },
+                        "address": {
+                            "address_line_1": "Flat no. 507 Wing A Raheja Residency",
+                            "address_line_2": "Film City Road",
+                            "admin_area_2": "Mumbai",
+                            "admin_area_1": "Maharashtra",
+                            "postal_code": "400097",
+                            "country_code": "IN"
+                        }
+                    },
+                    "payments": {
+                        "captures": [
+                            {
+                                "id": "80D10529BM613830E",
+                                "status": "COMPLETED",
+                                "amount": {
+                                    "currency_code": "USD",
+                                    "value": "90.00"
+                                },
+                                "final_capture": true,
+                                "seller_protection": {
+                                    "status": "ELIGIBLE",
+                                    "dispute_categories": [
+                                        "ITEM_NOT_RECEIVED",
+                                        "UNAUTHORIZED_TRANSACTION"
+                                    ]
+                                },
+                                "create_time": "2021-07-26T07:47:20Z",
+                                "update_time": "2021-07-26T07:47:20Z"
+                            }
+                        ]
+                    }
+                }
+            ],
+            "payer": {
+                "name": {
+                    "given_name": "John",
+                    "surname": "Doe"
+                },
+                "email_address": "sb-47hsml5238556@personal.example.com",
+                "payer_id": "RANA3V4HD9KHQ",
+                "address": {
+                    "country_code": "IN"
+                }
+            },
+            "create_time": "2021-07-26T07:46:56Z",
+            "update_time": "2021-07-26T07:47:20Z",
+            "links": [
+                {
+                    "href": "https://api.sandbox.paypal.com/v2/checkout/orders/14H16959XF0889058",
+                    "rel": "self",
+                    "method": "GET"
+                }
+            ]
+        },
+        "data": {
+            "orderID": "14H16959XF0889058",
+            "payerID": "RANA3V4HD9KHQ",
+            "paymentID": null,
+            "billingToken": null,
+            "facilitatorAccessToken": "A21AAIZXi2or1KPJ02smxoIBZgnm2_6LvfqrXQEfy7_kJpH2gBFkNo-x6zwYCN8TALO74BLiEF4c7yz8C46y1zn7ORYOWxntg"
+        }
+    }
+}
+
+
+####
+
+POST {{server}}/orders/checkout
+content-type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2Mjc4MTAwMjEsImV4cCI6MTYyNzgxMzYyMSwidWlkIjoiNDIifQ.H4t3MCdaJMUMx42VEBiIh2nYttlfbHOlZoKZruM61Nk
+
+{
+    "customer": {
+        "name": "Mohd Shahid",
+        "address": "3rd floor, ahata kidara, sadar bazar, Delhi - 11006",
+        "mobile_number": "7411343971",
+        "pin_code": "202001",
+        "additional_phone_number": ""
+    },
+    "attachments": "",
+    "customer_remarks": "",
+    "items": [
+        {
+            "item_id": 92
+        }
+    ],
+    "coupon_code": ""
+}
+
+###
+
+
+
+POST http://pr.zarrtechnologies.com/avon-backend/api/web/orders/checkout
+content-type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzAyMjM3NjksImV4cCI6MTY0NjAwMjIzMiwidWlkIjoiNDIifQ.DRVqz5JyjFWvkJ7YDIDDIlk4bOtgAF-cULf7vP3NOYA
+
+{"attachments": "", "coupon_code": "", "customer": {"address_id": 42, "name": "Mohd Hashim"}, "customer_remarks": "", "items": [{"item_id": 121, "quantity": 1}]}
+
+
+
+###
+
+
+curl 'https://lacreativity.in/backend/api/web/orders/checkout' \
+  -H 'authority: lacreativity.in' \
+  -H 'sec-ch-ua: "Chromium";v="94", "Google Chrome";v="94", ";Not A Brand";v="99"' \
+  -H 'accept: application/json, text/plain, */*' \
+  -H 'content-type: application/json;charset=UTF-8' \
+  -H 'authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzQxNDM4NDUsImV4cCI6MTYzNDE0NzQ0NSwidWlkIjoiMzgifQ.jdg8kmvLwICazpOxVQ143O2-caf83bbg96lB296HUaY' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36' \
+  -H 'sec-ch-ua-platform: "Windows"' \
+  -H 'origin: http://localhost:3001' \
+  -H 'sec-fetch-site: cross-site' \
+  -H 'sec-fetch-mode: cors' \
+  -H 'sec-fetch-dest: empty' \
+  -H 'referer: http://localhost:3001/' \
+  -H 'accept-language: en-US,en;q=0.9,hi;q=0.8' \
+  --data-raw '{"customer":{"name":"ASIF SHEIKH","address":"166","mobile_number":"917411343971","city":"WAZIRABD","country":"India","state":"Delhi","zip_code":"","additional_phone_number":"","district":"","additional_mobile_number":""},"items":[{"item_id":169,"quantity":1}],"customer_remarks":""}' \
+  --compressed

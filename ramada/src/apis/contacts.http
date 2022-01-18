@@ -1,0 +1,35 @@
+
+
+@server = http://pr.zarrtechnologies.com/avon-backend/api/web
+# @server = http://pillsgo.com/backend/api/web
+
+# @server = http://localhost:8888/projects/zarrcom-backend/api/web
+
+
+### Getting setting by category
+POST {{server}}/contacts
+Content-Type: application/json
+
+{
+    "name": "Priyranjan",
+    "email": "Kumar@yahoo.com",
+    "subject": "hiiii4",
+    "message": "my test message test",
+    "captcha_value": "aabc"
+}
+
+## NOTE: admin should not able to create or update the contacts from the admin panel.
+## admin should get an email.
+
+###
+
+POST {{server}}/contacts
+Content-Type: application/json
+
+{
+    "name": "Priyranjan",
+    "email": "Kumar@yahoo.com",
+    "subject": "hiiii4",
+    "message": "my test message test",
+    "captcha_value": "na"
+}

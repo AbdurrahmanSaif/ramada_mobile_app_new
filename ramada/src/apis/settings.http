@@ -1,0 +1,19 @@
+
+
+@server = http://pr.zarrtechnologies.com/{{PPROJECT}}/api/web
+# @server = http://pr.zarrtechnologies.com/rajvasant-backend/api/web
+
+
+
+# @server = http://localhost:8888/projects/zarrcom-backend/api/web
+
+### Getting setting by module_name
+GET {{server}}/settings?SettingsSearch[module_name]=frontend
+
+
+### Getting selected fields
+GET {{server}}/settings?fields=key,value
+
+
+### Mixed Queries
+GET {{server}}/settings?fields=key,value&SettingsSearch[module_name]=frontend
